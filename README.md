@@ -1,7 +1,7 @@
 # MIMIC Hypocalcaemia and Atrial Fibrillation Project
 
 ## Project Overview
-This project investigates the relationship between hypocalcaemia and atrial fibrillation (AF) using data from the MIMIC-III Critical Care Database. The aim is to understand how low calcium levels can impact cardiac health, particularly in patients with AF. 
+This project investigates the relationship between hypocalcaemia and atrial fibrillation (AF) using data from the MIMIC-IV Critical Care Database. The aim is to understand how low calcium levels can impact cardiac health, particularly in patients with AF. 
 
 ## Table of Contents
 1. [Introduction](#introduction)
