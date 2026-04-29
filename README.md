@@ -17,7 +17,7 @@ This project investigates the relationship between hypocalcaemia and atrial fibr
 Atrial fibrillation is a common cardiac arrhythmia associated with increased morbidity and mortality. Hypocalcaemia, or low serum calcium levels, may influence cardiac conduction and contribute to AF. This project aims to analyze this relationship using patient data. 
 
 ## Data Collection
-Data is sourced from the MIMIC-III database, which consists of de-identified health information related to critical care patients. Key features extracted include patient demographics, lab results (notably calcium levels), and AF occurrences.
+Data is sourced from the MIMIC-IV database, which consists of de-identified health information related to critical care patients. Key features extracted include patient demographics, lab results (notably calcium levels), and AF occurrences.
 
 ## Methods
 1. Data Preprocessing: Handling missing values, data normalization, etc.
