@@ -1,3 +1,5 @@
+#csvpull ----
+#used for reads of small elements of database with readr guessed column types
 csvpull <- function(mimic_table) {
   require(readr)
   icutables <- list.files('mimiciv/3.1/icu')
@@ -29,6 +31,7 @@ csvpull <- function(mimic_table) {
   return(df)
 }
 
+#simple remove outliers ----
 replace_outliers_with_na_iqr <- function(x) {
   # Calculate quartiles and IQR
   q1 <- quantile(x, 0.25, na.rm = TRUE)
@@ -44,6 +47,8 @@ replace_outliers_with_na_iqr <- function(x) {
   return(x)
 }
 
+#surgcheck ---- used to apply all categories of surgery that each patient recieved
+#returns simple true/false for checked elements (see 'Procedure Class.R')
 surgcheck <- function(hospid,
                       surg = c('valvular',
                                'coronary_bypass',

@@ -9,4 +9,4 @@ for (i in 1:(nrow(ops))) {
 ops <- ops[c(1,2,3,10)]
 colnames(ops) <- c('ICD Version','ICD Code','Title','Classification')
 ops <- arrange(ops, `ICD Version`,`ICD Code`)
-write_csv(ops, 'Working Data/Appendix 5.csv')
+write_csv(ops, 'Working Data/Appendix 1.csv')
