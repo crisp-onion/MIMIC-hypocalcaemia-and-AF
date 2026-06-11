@@ -1,10 +1,3 @@
-#RStudio 2026.01.0+392 "Apple Blossom" Release
-#(49fbea7a09a468fc4d1993ca376fd5b971cb58e3, 2026-01-04) for windows Mozilla/5.0
-#(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
-#RStudio/2026.01.0+392 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36,
-#Quarto 1.8.25
-#See 'Working Data/sessionInfo.log' for details of packages used
-
 #Libraries ----
 require(readr)
 require(dplyr)
@@ -80,7 +73,7 @@ write_excel_csv(procedurelist, 'Working Data/study operations.csv')
 
 #Censor for the first ICU admission for each hospital stay
 #This drops all but one procedure performed where some patients had multiple,
-#this issue is resolved near end of script (line 445)
+#this issue is resolved near end of script (line 401)
 CTS.patients <- CTS.patients |> group_by(hadm_id) |>
   filter(row_number(intime) == 1) |> ungroup()
 
@@ -411,8 +404,25 @@ for (i in 1:l) {
 FinalData <- FinalData |>
   dplyr::filter(when_any(valvular, coronary_bypass, maze, transplant, other))
 
-#Remove all patients who had Cox-Maze or similar surgery
-FinalData <- filter(FinalData, !maze)
+#The false_mazes vector disentangles several patients with Cox-maze surgery from
+#catheter procedures based on ICD code for Cardiopulmonary bypass.
+procedures_icd <- csvpull('procedures_icd')
+mazes <- FinalData %>% 
+  filter(when_all(maze, 
+                  !valvular,
+                  !coronary_bypass,
+                  !atrial_exclusion,
+                  !transplant,
+                  !other)) %>% 
+  select(hadm_id)
+
+d_icd_procedures <- csvpull('d_icd_pro')
+
+true_mazes <- dplyr::left_join(mazes, procedures_icd, by = 'hadm_id') %>%
+  dplyr::filter(icd_code == 3961) #"Extracorporeal circulation auxiliary to open heart surgery"
+false_mazes <- dplyr::anti_join(mazes, true_mazes, by = 'hadm_id')
+
+FinalData <- dplyr::anti_join(FinalData, false_mazes, by = 'hadm_id')
 
 #Blood product usage ----
 
