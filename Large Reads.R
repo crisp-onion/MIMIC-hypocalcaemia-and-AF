@@ -1,4 +1,5 @@
 require(readr)
+require(dplyr)
 
 #Chart Events ----  
 #Chunked .csv read of large file to isolate rhythm record, metric height, metric weight
@@ -19,15 +20,15 @@ require(readr)
     progress = T
   ) 
   
-  Rhythms <- chartevents%>% filter(itemid == 220048) %>% #item id for rhythm
+  Rhythms <- chartevents |> filter(itemid == 220048) |> #item id for rhythm
     arrange (stay_id, charttime)
   splitrhythms <- split.data.frame (Rhythms, Rhythms$stay_id)
   
-  weight <- chartevents %>% filter(itemid == 226512) %>% select(stay_id, value) %>%
+  weight <- chartevents |> filter(itemid == 226512) |> select(stay_id, value) |>
     mutate(value = as.numeric(value))
   colnames(weight)[colnames(weight) == 'value'] <- 'weight(kg)'
   
-  height <- chartevents %>% filter(itemid == 226730) %>% select(stay_id, value) %>%
+  height <- chartevents |> filter(itemid == 226730) |> select(stay_id, value) |>
     mutate(value = as.numeric(value))
   colnames(height)[colnames(height) == 'value'] <- 'height(cm)'
   
@@ -52,8 +53,8 @@ require(readr)
       flag = '?',
       charttime = 'T'),
     progress = T
-  )
-  Ci <- Ci[!is.na(Ci$value),]
+  ) |>
+    filter(!is.na(value))
   
   #input events----
   inputevents <- read_csv('mimiciv/3.1/icu/inputevents.csv.gz', show_col_types = F)
