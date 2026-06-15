@@ -149,10 +149,10 @@ Component Weights:
 
 #### 8. **Blood Product Utilization** (`bloodevents.R`)
 Extracts transfusion events during first 72 hours:
-- PRBC (Packed Red Blood Cell) volumes (units)
-- FFP (Fresh Frozen Plasma) volumes (units)
-- Platelet volumes (units)
-- Cryoprecipitate volumes (units)
+- PRBC (Packed Red Blood Cell) volumes (mLs)
+- FFP (Fresh Frozen Plasma) volumes (mLs)
+- Platelet volumes (mLs)
+- Cryoprecipitate volumes (mLs)
 - **Missing Data Handling:** NA values replaced with 0 (no transfusion)
 
 #### 9. **Vasopressor & Inotrope Usage** (`inopressors.R`)
