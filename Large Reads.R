@@ -54,7 +54,7 @@ require(dplyr)
       charttime = 'T'),
     progress = T
   ) |>
-    filter(!is.na(value))
+    filter(!is.na(value), value < 2)
   
   #input events----
   inputevents <- read_csv('mimiciv/3.1/icu/inputevents.csv.gz', show_col_types = F)

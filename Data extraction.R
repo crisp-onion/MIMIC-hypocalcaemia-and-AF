@@ -198,7 +198,7 @@ rm(i, j, x, y, z, NormR, SkipR, Discard)
 #of patients who developed AF and time of AF. Setdiff is then used to take the
 #opposite for a list of stay_id who did not develop AF in ICU
 load('working data/AFR.rda')
-DevelopedAF <- tribble (~ stay_id, ~ charttime, ~ itemid, ~ value)
+DevelopedAF <- tribble ( ~ stay_id, ~ charttime, ~ itemid, ~ value)
 for (i in 1:l) {
   if (splitrhythms[[i]][1, 1] %in% studysubjects) {
     x <- nrow (splitrhythms[[i]])
@@ -355,10 +355,10 @@ FinalData <- rbind.data.frame(DevelopedAF, no.AF) |>
     FirstAFtime,
     hospital_expire_flag,
     dod
-  ) |> 
+  ) |>
   mutate(any_hypocalcaemia = min.iCa.24 < 1.12) |>
   #Time to AF in days
-  dplyr::mutate(timetoaf.days = difftime(FirstAFtime, intime, units = 'days')) 
+  dplyr::mutate(timetoaf.days = difftime(FirstAFtime, intime, units = 'days'))
 
 rm(
   calcium_no_af.24.mean,
@@ -407,13 +407,15 @@ FinalData <- FinalData |>
 #The false_mazes vector disentangles several patients with Cox-maze surgery from
 #catheter procedures based on ICD code for Cardiopulmonary bypass.
 procedures_icd <- csvpull('procedures_icd')
-mazes <- FinalData %>% 
-  filter(when_all(maze, 
-                  !valvular,
-                  !coronary_bypass,
-                  !atrial_exclusion,
-                  !transplant,
-                  !other)) %>% 
+mazes <- FinalData %>%
+  filter(when_all(
+    maze,
+    !valvular,
+    !coronary_bypass,
+    !atrial_exclusion,
+    !transplant,
+    !other
+  )) %>%
   select(hadm_id)
 
 d_icd_procedures <- csvpull('d_icd_pro')
