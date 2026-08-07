@@ -8,7 +8,7 @@ require(dplyr)
             itemid %in% c(220048, 226512, 226730) & #Rhythms, weight, height respectively
               stay_id %in% CTS.patients$stay_id)} 
   chartevents <- read_csv_chunked (
-    "mimiciv/3.1/icu/chartevents.csv.gz",
+    "physionet.org/files/mimiciv/3.1/icu/chartevents.csv.gz",
     callback = DataFrameCallback$new(f),
     chunk_size = 10000,
     col_names = T,
@@ -39,7 +39,7 @@ require(dplyr)
            itemid == as.integer(50808) #itemid for blood gas calcium
            & hadm_id %in% CTS.patients$hadm_id)}
   Ci <- read_csv_chunked(
-    'mimiciv/3.1/hosp/labevents.csv.gz',
+    'physionet.org/files/mimiciv/3.1/hosp/labevents.csv.gz',
     callback = DataFrameCallback$new(f),
     chunk_size = 10000,
     col_names = T,
@@ -57,7 +57,7 @@ require(dplyr)
     filter(!is.na(value), value < 2)
   
   #input events----
-  inputevents <- read_csv('mimiciv/3.1/icu/inputevents.csv.gz', show_col_types = F)
+  inputevents <- read_csv('physionet.org/files/mimiciv/3.1/icu/inputevents.csv.gz', show_col_types = F)
   
   #Save completed ----
   save(splitrhythms, Ci, weight, height, inputevents, file = 'Working Data/large reads.rda')

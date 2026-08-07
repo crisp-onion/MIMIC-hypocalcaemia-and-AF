@@ -1,7 +1,7 @@
 require(readr)
-d_items <- read_csv('mimiciv/3.1/icu/d_items.csv.gz')
+d_items <- read_csv('physionet.org/files/mimiciv/3.1/icu/d_items.csv.gz')
 ca_items <- d_items %>% filter(grepl('Calcium',label))
-inputevents <- read_csv('mimiciv/3.1/icu/inputevents.csv.gz')
+inputevents <- read_csv('physionet.org/files/mimiciv/3.1/icu/inputevents.csv.gz')
 ca_events <- inputevents %>% filter(itemid %in% ca_items$itemid & stay_id %in% Final$stay_id)
 ca_events <- ca_events %>% left_join(Final, by = 'stay_id') %>% 
   select(stay_id, 

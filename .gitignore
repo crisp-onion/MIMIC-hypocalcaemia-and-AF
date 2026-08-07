@@ -47,3 +47,13 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Mimiciv data folder
+mimiciv/
+physionet.org/
+
+# working data
+Working Data/large reads.rda
+working Data/iCa values for AF developed.csv
+working Data/iCa values for no AF.csv
+working data/hadm_id who started with AF.rda

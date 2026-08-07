@@ -1,4 +1,5 @@
 #Libraries ----
+require(askpass)
 require(readr)
 require(dplyr)
 require(extremevalues)
@@ -6,11 +7,34 @@ require(extremevalues)
 #Functions ----
 source('functions.R')
 
+#Download MIMIC-IV 3.1 ----
+#This is based on a Windows system; linux will have wget by default,
+#change wget2 to wget as appropriate below
+#If you don't have Wget2 installed on windows run the following command in R
+#console or copy into powershell, then restart your system:
+
+#system('powershell winget install GNU.Wget2')
+
+user <- askpass("Please enter your physionet.org username:")
+pw <- askpass("Please enter your physionet.org password:")
+system(
+  paste(
+    'wget2 -r -N -c -np --user',
+    user,
+    '--password',
+    pw,
+    'https://physionet.org/files/mimiciv/3.1/'
+  ),
+  show.output.on.console = TRUE,
+  minimized = TRUE,
+  invisible = FALSE
+)
+
 #Establish list of cardiac surgical patient ----
 
 #Read in icustays
 ICU_STAYS <- read_csv(
-  "mimiciv/3.1/icu/icustays.csv.gz",
+  "physionet.org/files/mimiciv/3.1/icu/icustays.csv.gz",
   show_col_types = F,
   col_names = T,
   trim_ws = T,
@@ -27,7 +51,7 @@ ICU_STAYS <- read_csv(
 )
 
 Hosp_proc <- read_csv(
-  file = "mimiciv/3.1/hosp/procedures_icd.csv.gz",
+  file = "physionet.org/files/mimiciv/3.1/hosp/procedures_icd.csv.gz",
   show_col_types = F,
   col_names = T,
   trim_ws = T,
@@ -81,7 +105,7 @@ rm(ICU_STAYS, proc, procedurelist)
 
 #Add age and gender ----
 AG <- read_csv(
-  'mimiciv/3.1/hosp/patients.csv.gz',
+  'physionet.org/files/mimiciv/3.1/hosp/patients.csv.gz',
   col_names = T,
   cols_only (
     subject_id = 'i',
@@ -108,7 +132,7 @@ rm(AG)
 
 #Import race, admission type ----
 Admissions <- read_csv(
-  'mimiciv/3.1/hosp/admissions.csv.gz',
+  'physionet.org/files/mimiciv/3.1/hosp/admissions.csv.gz',
   col_names = T,
   cols_only(
     hadm_id = 'i',
@@ -129,7 +153,7 @@ if (file.exists('Working Data/large reads.rda')) {
   load('Working Data/large reads.rda')
   
 } else {
-  source('Large Reads.R', echo = F)
+  source('Large Reads.R', echo = T)
 }
 
 #Add weight, height, BMI ----

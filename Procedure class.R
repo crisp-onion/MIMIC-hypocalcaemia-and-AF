@@ -1,7 +1,7 @@
 require(dplyr)
 require(readr)
 proc <- read_csv(
-  file = "mimiciv/3.1/hosp/d_icd_procedures.csv.gz",
+  file = "physionet.org/files/mimiciv/3.1/hosp/d_icd_procedures.csv.gz",
   show_col_types = F,
   col_names = T,
   trim_ws = T

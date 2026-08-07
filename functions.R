@@ -2,8 +2,8 @@
 #used for reads of small elements of database with readr guessed column types
 csvpull <- function(mimic_table) {
   require(readr)
-  icutables <- list.files('mimiciv/3.1/icu')
-  hosptables <- list.files('mimiciv/3.1/hosp')
+  icutables <- list.files('physionet.org/files/mimiciv/3.1/icu')
+  hosptables <- list.files('physionet.org/files/mimiciv/3.1/hosp')
   tables <- c(icutables, hosptables)
   
   h <- sum (grepl (mimic_table, hosptables))
