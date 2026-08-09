@@ -8,7 +8,7 @@
 #install.packages("readr")
 require(readr)
 require(dplyr)
-diag_icd <<- read_csv('physionet.org/files/mimiciv/3.1/hosp/diagnoses_icd.csv.gz', show_col_types = F)
+diag_icd <<- read_csv('mimiciv/3.1/hosp/diagnoses_icd.csv.gz', show_col_types = F)
 diag_icd9 <<- subset.data.frame(diag_icd, diag_icd$icd_version == 9)
 diag_icd10 <<- subset.data.frame(diag_icd, diag_icd$icd_version == 10)
 

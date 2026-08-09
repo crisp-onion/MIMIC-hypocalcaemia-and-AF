@@ -1,5 +1,5 @@
 library(readr)
-d_icd <- read_csv('physionet.org/files/mimiciv/3.1/hosp/d_icd_diagnoses.csv.gz')
+d_icd <- read_csv('mimiciv/3.1/hosp/d_icd_diagnoses.csv.gz')
 
 codes <- c('42731',
            '42732',

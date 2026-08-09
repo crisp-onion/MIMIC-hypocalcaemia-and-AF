@@ -1,6 +1,6 @@
 #Setup ----
 rm(list = ls())
-#source('Data extraction.R', local = T, echo = T)
+#source('Data extraction.R', local = T, echo = F)
 
 library(ggplot2)
 library(ggeffects)
@@ -304,11 +304,10 @@ tbl_uvregression(
   y = 'Developed_AF',
   method = glm,
   label = labellist,
-  show_single_row = all_dichotomous(),
-  exponentiate = T
+  show_single_row = all_dichotomous()
 ) |>
   bold_p() |>
-  modify_caption('**Univariate Modelling**')
+  modify_caption('*Univariate Modelling*')
 
 s_init <- glm(Developed_AF ~ Initial_iCa,
               data = refactored,
@@ -733,7 +732,6 @@ sevendaymeanplot <- ggplot(data = filter(All_iCa,time<10), mapping = aes(x = tim
     se = T,
     show.legend = T
   ) +  
-  #geom_point(alpha = 0.05, position = 'jitter') +
   scale_color_discrete(palette = 'Set1') +
   geom_hline(yintercept = 1.12,
              linetype = 4,
@@ -750,8 +748,8 @@ sevendaymeanplot <- ggplot(data = filter(All_iCa,time<10), mapping = aes(x = tim
   scale_x_continuous(expand = expansion (0), breaks = 1:7) +
   scale_y_continuous(
     expand = expansion (0),
-    breaks = 16:40/20,
-    minor_breaks = 80:200/100
+    breaks = c(1.1, 1.15, 1.2),
+    minor_breaks = c(1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19)
   ) +
   theme_minimal() +
   labs(
